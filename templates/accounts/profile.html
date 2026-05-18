@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Profile — {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-gray-900 rounded-2xl border border-gray-800 p-8">
+
+        <!-- Avatar + Name -->
+        <div class="flex items-center gap-6 mb-8">
+            {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="Profile Picture"
+                    class="w-20 h-20 rounded-full object-cover border-2 border-indigo-500" />
+            {% else %}
+                <div class="w-20 h-20 rounded-full bg-indigo-700 flex items-center justify-center text-3xl font-bold">
+                    {{ user.username|first|upper }}
+                </div>
+            {% endif %}
+            <div>
+                <h1 class="text-2xl font-bold">{{ user.username }}</h1>
+                <p class="text-gray-400 text-sm">{{ user.email }}</p>
+            </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="mb-6">
+            <h2 class="text-sm text-gray-500 uppercase tracking-wider mb-2">Bio</h2>
+            <p class="text-gray-300">
+                {{ user.bio|default:"No bio yet." }}
+            </p>
+        </div>
+
+        <!-- Member Since -->
+        <div class="mb-8">
+            <h2 class="text-sm text-gray-500 uppercase tracking-wider mb-2">Member Since</h2>
+            <p class="text-gray-300">{{ user.date_joined|date:"F j, Y" }}</p>
+        </div>
+
+        <a href="{% url 'edit_profile' %}"
+            class="inline-block bg-indigo-600 hover:bg-indigo-500 px-6 py-2.5 rounded-lg font-semibold transition">
+            Edit Profile
+        </a>
+    </div>
+</div>
+{% endblock %}
