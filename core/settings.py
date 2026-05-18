@@ -31,6 +31,22 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'accounts.CustomUser'
 SITE_ID = 1
 
+# Override site domain for allauth
+from django.db.models.signals import post_migrate
+from django.dispatch import receiver
+
+@receiver(post_migrate)
+def update_site_domain(sender, **kwargs):
+    if sender.name == 'django.contrib.sites':
+        from django.contrib.sites.models import Site
+        Site.objects.update_or_create(
+            id=1,
+            defaults={
+                'domain': 'photo-gallery-9ij8.onrender.com',
+                'name': 'photo-gallery-9ij8.onrender.com'
+            }
+        )
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
