@@ -45,8 +45,16 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
+        'APPS': [
+            {
+                'client_id': config('GOOGLE_CLIENT_ID'),
+                'secret': config('GOOGLE_CLIENT_SECRET'),
+                'settings': {
+                    'scope': ['profile', 'email'],
+                    'auth_params': {'access_type': 'online'},
+                }
+            }
+        ]
     }
 }
 
