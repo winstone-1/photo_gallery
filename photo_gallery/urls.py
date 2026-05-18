@@ -1,11 +1,6 @@
 from django.urls import path
-from django.http import HttpResponse
-
-
-def placeholder(request):
-    return HttpResponse("Gallery coming soon!")
-
+from . import views
 
 urlpatterns = [
-    path('', placeholder, name='gallery'),
+    path('', views.gallery_view, name='gallery'),
 ]
