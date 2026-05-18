@@ -3,19 +3,36 @@
 
 {% block content %}
 <div class="max-w-md mx-auto mt-12">
-    <h1 class="text-2xl font-bold mb-6 text-center">Welcome Back</h1>
-    <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800">
+    <h1 class="text-2xl font-semibold mb-6 text-center text-forest-400">Welcome Back</h1>
+    <div class="bg-forest-900 rounded-2xl p-8 border border-forest-800">
+
+        <a href="{% url 'google_login' %}?next=/gallery/"
+            class="w-full flex items-center justify-center gap-3 bg-white text-gray-900 font-semibold py-2.5 rounded-lg mb-6 hover:bg-gray-100 transition text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 48 48">
+                <path fill="#EA4335" d="M24 9.5c3.14 0 5.95 1.08 8.17 2.84l6.1-6.1C34.39 3.07 29.47 1 24 1 14.82 1 7.07 6.48 3.64 14.18l7.13 5.54C12.4 13.62 17.74 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.52 24.5c0-1.64-.15-3.22-.42-4.74H24v8.98h12.67c-.55 2.94-2.2 5.43-4.67 7.1l7.18 5.57C43.36 37.78 46.52 31.6 46.52 24.5z"/>
+                <path fill="#FBBC05" d="M10.77 28.28A14.6 14.6 0 0 1 9.5 24c0-1.49.26-2.93.72-4.28L3.09 14.18A23.93 23.93 0 0 0 0 24c0 3.86.92 7.51 2.55 10.73l8.22-6.45z"/>
+                <path fill="#34A853" d="M24 47c5.47 0 10.07-1.81 13.43-4.91l-7.18-5.57c-1.98 1.33-4.52 2.12-6.25 2.12-6.26 0-11.6-4.12-13.23-9.72l-8.22 6.45C7.07 41.52 14.82 47 24 47z"/>
+            </svg>
+            Continue with Google
+        </a>
+
+        <div class="flex items-center gap-3 mb-6">
+            <div class="flex-1 h-px bg-forest-800"></div>
+            <span class="text-forest-800 text-xs">or sign in with email</span>
+            <div class="flex-1 h-px bg-forest-800"></div>
+        </div>
+
         <form method="POST" novalidate>
             {% csrf_token %}
             {% for field in form %}
                 <div class="mb-4">
-                    <label class="block text-sm text-gray-400 mb-1">{{ field.label }}</label>
+                    <label class="block text-xs text-forest-600 mb-1.5 uppercase tracking-wider">{{ field.label }}</label>
                     <input
                         type="{{ field.field.widget.input_type }}"
                         name="{{ field.html_name }}"
-                        id="{{ field.id_for_label }}"
                         value="{{ field.value|default:'' }}"
-                        class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500"
+                        class="w-full bg-forest-950 border border-forest-800 rounded-lg px-4 py-2.5 text-forest-100 text-sm focus:outline-none focus:border-forest-600 transition"
                     />
                     {% if field.errors %}
                         {% for error in field.errors %}
@@ -24,12 +41,14 @@
                     {% endif %}
                 </div>
             {% endfor %}
-            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 py-2.5 rounded-lg font-semibold mt-2 transition">
+            <button type="submit"
+                class="w-full bg-forest-700 hover:bg-forest-600 text-forest-100 py-2.5 rounded-lg font-semibold mt-2 transition text-sm">
                 Login
             </button>
         </form>
-        <p class="text-center text-gray-500 text-sm mt-4">
-            No account? <a href="{% url 'register' %}" class="text-indigo-400 hover:underline">Register</a>
+
+        <p class="text-center text-forest-800 text-sm mt-4">
+            No account? <a href="{% url 'register' %}" class="text-forest-600 hover:text-forest-400 transition">Register</a>
         </p>
     </div>
 </div>

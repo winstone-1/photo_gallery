@@ -3,40 +3,37 @@
 
 {% block content %}
 <div class="max-w-2xl mx-auto">
-    <div class="bg-gray-900 rounded-2xl border border-gray-800 p-8">
+    <div class="bg-forest-900 rounded-2xl border border-forest-800 p-8">
 
-        <!-- Avatar + Name -->
         <div class="flex items-center gap-6 mb-8">
             {% if user.profile_picture %}
                 <img src="{{ user.profile_picture.url }}" alt="Profile Picture"
-                    class="w-20 h-20 rounded-full object-cover border-2 border-indigo-500" />
+                    class="w-20 h-20 rounded-full object-cover border-2 border-forest-700" />
             {% else %}
-                <div class="w-20 h-20 rounded-full bg-indigo-700 flex items-center justify-center text-3xl font-bold">
+                <div class="w-20 h-20 rounded-full bg-forest-800 border border-forest-700 flex items-center justify-center text-2xl font-semibold text-forest-600">
                     {{ user.username|first|upper }}
                 </div>
             {% endif %}
             <div>
-                <h1 class="text-2xl font-bold">{{ user.username }}</h1>
-                <p class="text-gray-400 text-sm">{{ user.email }}</p>
+                <h1 class="text-xl font-semibold text-forest-100">{{ user.username }}</h1>
+                <p class="text-forest-600 text-sm mt-0.5">{{ user.email }}</p>
             </div>
         </div>
 
-        <!-- Bio -->
-        <div class="mb-6">
-            <h2 class="text-sm text-gray-500 uppercase tracking-wider mb-2">Bio</h2>
-            <p class="text-gray-300">
+        <div class="border-t border-forest-800 pt-6 mb-6">
+            <p class="text-xs text-forest-600 uppercase tracking-wider mb-2">Bio</p>
+            <p class="text-forest-400 text-sm leading-relaxed">
                 {{ user.bio|default:"No bio yet." }}
             </p>
         </div>
 
-        <!-- Member Since -->
-        <div class="mb-8">
-            <h2 class="text-sm text-gray-500 uppercase tracking-wider mb-2">Member Since</h2>
-            <p class="text-gray-300">{{ user.date_joined|date:"F j, Y" }}</p>
+        <div class="border-t border-forest-800 pt-6 mb-8">
+            <p class="text-xs text-forest-600 uppercase tracking-wider mb-2">Member Since</p>
+            <p class="text-forest-400 text-sm">{{ user.date_joined|date:"F j, Y" }}</p>
         </div>
 
         <a href="{% url 'edit_profile' %}"
-            class="inline-block bg-indigo-600 hover:bg-indigo-500 px-6 py-2.5 rounded-lg font-semibold transition">
+            class="inline-block bg-forest-700 hover:bg-forest-600 text-forest-100 px-6 py-2.5 rounded-lg text-sm font-semibold transition">
             Edit Profile
         </a>
     </div>

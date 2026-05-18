@@ -4,80 +4,71 @@
 {% block content %}
 <div class="max-w-3xl mx-auto">
 
-    <!-- Back Link -->
-    <a href="{% url 'gallery' %}" class="text-sm text-gray-400 hover:text-white transition mb-6 inline-block">
+    <a href="{% url 'gallery' %}" class="text-sm text-forest-600 hover:text-forest-400 transition mb-6 inline-block">
         &larr; Back to Gallery
     </a>
 
-    <div class="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
+    <div class="bg-forest-900 rounded-2xl border border-forest-800 overflow-hidden">
 
-        <!-- Photo Image -->
-        <div class="w-full bg-gray-800">
+        <div class="w-full bg-forest-800">
             <img src="{{ photo.image.url }}" alt="{{ photo.title }}"
                 class="w-full max-h-[500px] object-cover" />
         </div>
 
         <div class="p-8">
 
-            <!-- Title -->
-            <h1 class="text-2xl font-bold mb-2">{{ photo.title }}</h1>
+            <h1 class="text-xl font-semibold text-forest-100 mb-2">{{ photo.title }}</h1>
 
-            <!-- Meta -->
-            <div class="flex items-center gap-3 text-sm text-gray-500 mb-6">
-                <span>Uploaded by <span class="text-gray-300">{{ photo.uploaded_by.username }}</span></span>
+            <div class="flex items-center gap-3 text-xs text-forest-600 mb-6">
+                <span>Uploaded by <span class="text-forest-400">{{ photo.uploaded_by.username }}</span></span>
                 <span>&middot;</span>
                 <span>{{ photo.created_at|date:"F j, Y" }}</span>
             </div>
 
-            <!-- Description -->
             {% if photo.description %}
-            <p class="text-gray-300 leading-relaxed mb-6">{{ photo.description }}</p>
+            <p class="text-forest-400 text-sm leading-relaxed mb-6">{{ photo.description }}</p>
             {% endif %}
 
-            <!-- Tags -->
             {% if photo.tags.all %}
             <div class="flex flex-wrap gap-2 mb-8">
                 {% for tag in photo.tags.all %}
                 <a href="{% url 'gallery' %}?tag={{ tag.name }}"
-                    class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-400 px-3 py-1 rounded-full transition">
+                    class="text-xs bg-forest-950 text-forest-600 border border-forest-800 hover:border-forest-600 px-3 py-1 rounded-full transition">
                     {{ tag.name }}
                 </a>
                 {% endfor %}
             </div>
             {% endif %}
 
-            <!-- Like / Dislike -->
-            <div class="flex items-center gap-4 pt-6 border-t border-gray-800">
+            <div class="flex items-center gap-4 pt-6 border-t border-forest-800">
 
-                <!-- Like -->
                 <form method="POST" action="{% url 'like_photo' photo.pk %}">
                     {% csrf_token %}
                     <input type="hidden" name="value" value="like" />
                     <button type="submit"
-                        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition
+                        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition border
                         {% if user_like and user_like.value == 'like' %}
-                            bg-indigo-600 text-white
+                            bg-forest-700 text-forest-100 border-forest-700
                         {% else %}
-                            bg-gray-800 text-gray-300 hover:bg-gray-700
+                            bg-transparent text-forest-600 border-forest-800 hover:border-forest-600
                         {% endif %}">
                         Like
-                        <span class="font-bold">{{ photo.total_likes }}</span>
+                        <span class="font-semibold">{{ photo.total_likes }}</span>
                     </button>
                 </form>
 
-                <!-- Dislike -->
                 <form method="POST" action="{% url 'like_photo' photo.pk %}">
                     {% csrf_token %}
                     <input type="hidden" name="value" value="dislike" />
                     <button type="submit"
-                        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition
+                        class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition border
                         {% if user_like and user_like.value == 'dislike' %}
-                            bg-red-700 text-white
+                            bg-red-900 text-red-300 border-red-900
                         {% else %}
-                            bg-gray-800 text-gray-300 hover:bg-gray-700
+                            bg-transparent text-forest-600 border-forest-800 hover:border-forest-600
                         {% endif %}">
                         Dislike
-                        <span class="font-bold">{{ photo.total_dislikes }}</span>
+                        <span class="font-semibold">{{ photo.total_dislikes }}</span>
                     </button>
                 </form>
 
